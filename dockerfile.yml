@@ -1,0 +1,61 @@
+---
+- hosts: server1
+  become: true
+  pre_tasks:
+
+    - name: install docker
+      shell:
+        sudo apt-get install docker.io -y
+      when: asnible_distribution == "Ubuntu"
+
+    - name: dpkg for Ubuntu
+      shell:
+        dpkg --configure -a
+      when: asnible_distribution == "Ubuntu"
+
+    - install docker (Ubuntu)
+      apt: 
+        name: docker
+        state: latest
+      when: asnible_distribution == "Ubuntu"
+
+    - install SDK (Ubuntu)
+      shell:
+        pip3 install docker-py
+
+    - name: adding group to Docker
+      shell:
+        usermod -aG docker dldperez
+
+    - name: Enable/Restart Docker (Ubuntu)
+      service:
+        name: docker
+        state: started
+        enabled: true
+
+    - name: Create Directory for Dockerfile
+      file:
+        path: ./root/demo-dockerfile
+        state: directory
+        owner: root
+        group: root
+        mode: '0755'
+
+    - name: Importing of Dockerfile
+      copy:
+        src: ./dockerfile
+        dest: ./root/demo-dockerfile/dockerfile
+        owner: root
+        group: root
+        mode: '0755'
+
+#- hosts: control
+#  become: true
+#  pre_tasks:
+
+#    -name: Install packages
+#     yum:
+#       name:
+         
+       
+
