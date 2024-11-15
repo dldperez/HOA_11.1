@@ -6,20 +6,20 @@
     - name: install docker
       shell:
         sudo apt-get install docker.io -y
-      when: asnible_distribution == "Ubuntu"
+      when: ansible_distribution == "Ubuntu"
 
     - name: dpkg for Ubuntu
       shell:
         dpkg --configure -a
-      when: asnible_distribution == "Ubuntu"
+      when: ansible_distribution == "Ubuntu"
 
-    - install docker (Ubuntu)
+    - name: install docker (Ubuntu)
       apt: 
         name: docker
         state: latest
-      when: asnible_distribution == "Ubuntu"
+      when: ansible_distribution == "Ubuntu"
 
-    - install SDK (Ubuntu)
+    - name: install SDK (Ubuntu)
       shell:
         pip3 install docker-py
 
